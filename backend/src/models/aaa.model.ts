@@ -5,18 +5,29 @@
 import { Application } from '../declarations';
 import { Model, Mongoose } from 'mongoose';
 
+
+
 export default function (app: Application): Model<any> {
   const modelName = 'aaa';
   const mongooseClient: Mongoose = app.get('mongooseClient');
-  console.log("mongooseClient",mongooseClient);
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    email: { type: String, required: true },
-    country: { type: String, required: true },
-    province: { type: String, required: true },
-    postalCode: { type: String, required: true }
+    name : {
+      first: {
+        type: String
+      },
+      last: {
+        type: String,
+        required: false
+      }
+    },
+    email : {
+      type: String
+    },
+    phone : {
+      type: String,
+      required: [true],
+    }
   }, {
     timestamps: true
   });

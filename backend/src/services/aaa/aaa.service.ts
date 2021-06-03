@@ -25,4 +25,4 @@ export default function (app: Application): void {
   const service = app.service('aaa');
 
   service.hooks(hooks);
-}
+};

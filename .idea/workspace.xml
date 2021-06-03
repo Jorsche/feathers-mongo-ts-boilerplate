@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ef11e05c-27a2-422c-ae50-24ea7a00fea6" name="Default Changelist" comment="" />
+    <list default="true" id="ef11e05c-27a2-422c-ae50-24ea7a00fea6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/models/aaa.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/models/aaa.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/services/aaa/aaa.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/services/aaa/aaa.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/services/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/services/index.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,7 +29,7 @@
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TypeScript" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/backend/node_modules/typescript/lib" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/frontend/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -30,6 +37,18 @@
       <recent name="$PROJECT_DIR$/backend/src" />
       <recent name="$PROJECT_DIR$/backend/src/services" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="start dev" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start:dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -43,7 +62,8 @@
       <workItem from="1622519949393" duration="6630000" />
       <workItem from="1622535123465" duration="14316000" />
       <workItem from="1622623385287" duration="741000" />
-      <workItem from="1622646849353" duration="379000" />
+      <workItem from="1622646849353" duration="10515000" />
+      <workItem from="1622696977636" duration="6701000" />
     </task>
     <servers />
   </component>
@@ -51,31 +71,55 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="424" y="202" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1622732915819">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="424" y="202" width="1071" height="724" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1622732915819" />
     <state x="611" y="245" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1622613883169">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="458" y="204" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1440.900@0.0.1440.900" timestamp="1622537851733" />
     <state x="611" y="245" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1622613883169" />
-    <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1622624158409">
+    <state width="1899" height="305" key="GridCell.Tab.0.bottom" timestamp="1622696969166">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="305" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1622696969166" />
+    <state width="1899" height="305" key="GridCell.Tab.0.center" timestamp="1622696969164">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="305" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1622696969164" />
+    <state width="1899" height="305" key="GridCell.Tab.0.left" timestamp="1622696969163">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="305" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1622696969163" />
+    <state width="1899" height="305" key="GridCell.Tab.0.right" timestamp="1622696969165">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="305" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1622696969165" />
+    <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1622697837148">
       <screen x="0" y="23" width="1920" height="988" />
     </state>
-    <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1622623786848" />
-    <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1920.988@0.23.1920.988" timestamp="1622624158409" />
+    <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1622697688174" />
+    <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.1920.988@0.23.1920.988" timestamp="1622697837148" />
     <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1622624158409">
       <screen x="0" y="23" width="1920" height="988" />
     </state>
     <state x="100" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.23.1920.988@0.23.1920.988" timestamp="1622624158409" />
-    <state x="661" y="295" width="598" height="490" key="find.popup" timestamp="1622619502620">
+    <state x="661" y="295" width="598" height="490" key="find.popup" timestamp="1622701281601">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="661" y="295" width="598" height="490" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1622619502620" />
+    <state x="661" y="295" width="598" height="490" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1622701281601" />
+    <state x="782" y="441" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1622649449544">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="782" y="441" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1622649449544" />
     <state x="625" y="255" key="run.anything.popup" timestamp="1622533276250">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="625" y="255" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1622533276250" />
-    <state x="625" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1622613876876">
+    <state x="625" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1622701289371">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="625" y="241" width="670" height="676" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1622613876876" />
+    <state x="625" y="241" width="670" height="676" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1622701289371" />
   </component>
 </project>
