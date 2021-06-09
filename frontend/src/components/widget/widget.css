@@ -1,0 +1,23 @@
+.widget-container{
+    background-color: fuchsia;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    max-height: 150px;
+    max-width: 50%;
+    margin-top: 10px;
+}
+
+.widget-header{
+    background-color: yellowgreen;
+    height: 10%; /* Or whatever */
+    display: flex;
+    justify-content:space-between;
+}
+
+.widget-body{
+    background-color: #61dafb;
+    max-height: inherit;
+
+}
