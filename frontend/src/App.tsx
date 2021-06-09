@@ -3,26 +3,15 @@ import { NavLink, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import ContactListPage from './pages/contact-list-page';
 import ContactFormPage from './pages/contact-form-page';
+import OcdViewer from "./components/ocd-viewer/OcdViewer";
+import TestHook from "./components/react-grid/test-hook";
 
 function App() {
     return (
         <Container>
-            <div className="ui two item menu">
-                <NavLink className="item" activeClassName="active" exact to="/">
-                    Contacts List
-                </NavLink>
-                <NavLink
-                    className="item"
-                    activeClassName="active"
-                    exact
-                    to="/aaa/new"
-                >
-                    Add Contact
-                </NavLink>
-            </div>
-            <Route exact path="/" component={ContactListPage} />
-            <Route path="/aaa/new" component={ContactFormPage} />
-            <Route path="/aaa/edit/:_id" component={ContactFormPage} />
+            <OcdViewer></OcdViewer>
+            {/*<TestHook></TestHook>*/}
+
         </Container>
     );
 }
