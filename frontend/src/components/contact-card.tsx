@@ -9,7 +9,6 @@ const  { useContext }  =  React;
 
 // @ts-ignore
 const ContactCard = ({ contact }) => {
-  console.log("contact",contact);
   // eslint-disable-next-line no-unused-vars
   // @ts-ignore
   const [state, dispatch] = useContext(ContactContext);
