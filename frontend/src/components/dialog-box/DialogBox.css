@@ -1,0 +1,26 @@
+.dialog-box-container{
+    background-color: #282c34;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 100px;
+}
+
+.dialog-title{
+    padding: 20px;
+    background-color: red;
+    height: 70%; /* Or whatever */
+}
+
+.dialog-footer {
+    background-color: brown;
+    height: 30%; /* Or whatever */
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.dialog-footer button{
+    background-color: #61dafb !important;
+    margin-left: 10px !important;
+}
