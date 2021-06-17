@@ -1,0 +1,11 @@
+.controller-container {
+    background-color: #282c34;
+    height: 100%;
+    width: 100%;
+}
+
+.controller-footer{
+    justify-content: flex-end;
+    display: flex;
+}
+
