@@ -19,10 +19,12 @@
     background-color: brown;
     height: 10%; /* Or whatever */
     display: flex;
-    justify-content:space-between;
+    justify-content: flex-end;
+
 }
 
 .ui.button.add-widget-button{
     background-color: #61dafb;
+    margin-left: 10px;
 }
 
