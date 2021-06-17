@@ -1,17 +1,22 @@
 import React from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
-import ContactListPage from './pages/contact-list-page';
-import ContactFormPage from './pages/contact-form-page';
-import OcdViewer from "./components/ocd-viewer/OcdViewer";
-import TestHook from "./components/react-grid/test-hook";
+import DialogBox from "./components/dialog-box/DialogBox";
+import OcdController from "./components/ocd-controller/OcdController";
 
 function App() {
     return (
         <Container>
-            <OcdViewer></OcdViewer>
-            {/*<TestHook></TestHook>*/}
-
+            <NavLink
+                className="item"
+                activeClassName="active"
+                exact
+                to="/mockURL/new"
+            >
+                Mock URL
+            </NavLink>
+            <OcdController></OcdController>
+            <Route path="/mockURL/new" component={DialogBox} />
         </Container>
     );
 }

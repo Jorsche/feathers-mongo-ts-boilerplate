@@ -4,16 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { ContactContextProvider } from './context/contact-context';
 import 'fomantic-ui-css/semantic.min.css';
 import 'semantic-ui-css/semantic.min.css'
 
 ReactDOM.render(
-    <ContactContextProvider>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-    </ContactContextProvider>,
+   ,
     document.getElementById('root')
 );
 
