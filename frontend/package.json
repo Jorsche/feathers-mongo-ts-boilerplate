@@ -5,6 +5,7 @@
   "dependencies": {
     "@feathersjs/client": "^4.5.11",
     "@feathersjs/socketio-client": "^4.5.11",
+    "@reduxjs/toolkit": "^1.6.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -14,6 +15,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-grid-layout": "^1.1.1",
+    "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
@@ -25,6 +27,7 @@
     "react-dom": "^17.0.2",
     "react-grid-layout": "^1.2.5",
     "react-hook-form": "^7.7.1",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "semantic-ui-css": "^2.4.1",

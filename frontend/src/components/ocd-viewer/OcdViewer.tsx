@@ -1,11 +1,26 @@
 import React, {useState} from "react";
 import {Button, Dropdown} from 'semantic-ui-react'
-import "./OcdViewer.css"
 import BoundedLayout from "../react-grid/react-grid";
 import _ from 'lodash';
 import client from '../../feathers';
 
-const OcdViewer = ({name})=>{
+const OcdViewer = ({
+                       viewer,
+                       viewerName,
+                       setViewerState,
+                       viewerState,
+
+                       setWidgetLayout,
+                       setWidgetItems,
+                       setWidgetResizeHandles,
+                       widgetLayouts,
+                       widgetItems,
+                       widgetCol,
+                       index,
+                       createViewer,
+                       viewers
+})=>{
+    console.log("viewerState",viewerState);
     const widgetService = client.service('widgets');
     const [widgetOptionSelection, setWidgetOptionsArray] = useState([
         {
@@ -39,76 +54,129 @@ const OcdViewer = ({name})=>{
             value: 'Widget6',
         },
     ]);
-    const [itemState, setItemState] = useState({
-        layout:[],
-        items:[],
-        newCounter: 0
-    });
     const [saveClick, setSaveClick] = useState(false);
     const [resState, setResState] = useState({});
-    const availableHandles = ["s", "w", "e", "n", "sw", "nw", "se"];
-
-    // widgetService.aggregate([{
-    //     $lookup: {
-    //         from: 'User',
-    //         localField: 'User_ID',
-    //         foreignField: 'ID',
-    //         as: 'Customer'
-    //     }}]);
+    const [itemState, setItemState] = useState({
+        viewerName:"",
+        layout:[],
+        items:[],
+        widgetOption:[],
+        newCounter: 0
+    });
+    // const retrievalOfItems =async ()=>{
+    //     try {
+    //        const response =await widgetService.find();
+    //        //response is array of object_id  --> correct--> each viewer shld have its own object
+    //         console.log("res",response);
+    //         if(response.data.length>0) {
+    //             const fetchData = response.data;
+    //             console.log("fetchData,",fetchData);
+    //             setResState(fetchData);
+    //             setItemState(fetchData);
+    //           //todo
+    //             const results = widgetOptionSelection.filter(({ value: id1 }) => !fetchData.map((val)=>(
+    //                 val.layout.some(({ i: id2 }) => id2 === id1))));
+    //             setWidgetOptionsArray(results);
+    //         }
+    //     }
+    //     catch(e){
+    //         console.log("error",e);
+    //     }
     //
+    // }
+    // const saveOrEdit = async (itemState,resState)=>{
+    //     try {
+    //         console.log("!_.isEmpty(resState)",!_.isEmpty(resState));
+    //         if(_.isEmpty(resState)){
+    //             widgetService.create(itemState).then(()=>{
+    //                 retrievalOfItems();
+    //             })
+    //         }
+    //         else{
+    //             widgetService.patch(itemState._id,itemState).then(()=>{
+    //                 retrievalOfItems();
+    //             })
+    //         }
+    //     } catch (error) {
+    //         console.log("err", error);
+    //     }
+    // }
+    // console.log("itemState",itemState);
 
-
-    const retrievalOfItems =async ()=>{
-        try {
-           const response =await widgetService.find();
-            if(response.data.length>0) {
-                const fetchData = response.data[0];
-                setResState(fetchData);
-                setItemState(fetchData);
-                const results = widgetOptionSelection.filter(({ value: id1 }) => !fetchData.layout.some(({ i: id2 }) => id2 === id1));
-                setWidgetOptionsArray(results);
-            }
-        }
-        catch(e){
-            console.log("error",e);
-        }
-
-    }
-    console.log("resState",resState);
-
-    const saveOrEdit = async (itemState,resState)=>{
-        try {
-            console.log("!_.isEmpty(resState)",!_.isEmpty(resState));
-            if(_.isEmpty(resState)){
-                widgetService.create(itemState).then(()=>{
-                    retrievalOfItems();
-                })
-            }
-            else{
-                widgetService.patch(itemState._id,itemState).then(()=>{
-                    retrievalOfItems();
-                })
-            }
-        } catch (error) {
-            console.log("err", error);
-        }
-
-        // const postOrPut= _.isEmpty(resState)?axios.post:axios.patch;
-        // try {
-        //     postOrPut(`http://localhost:3030/widgets/${!_.isEmpty(resState) ? itemState._id: ""}`, itemState).then(()=>{
-        //         retrievalOfItems();
-        //     })
-        // } catch (error) {
-        //         console.log("err", error);
-        //     }
-
-    }
     const onChange = (e: any, {value}: any) => {
+        const availableHandles = ["s", "w", "e", "n", "sw", "nw", "se"];
         setWidgetOptionsArray(widgetOptionSelection.filter((val)=>(
             val.value!==value
         )));
-        setItemState({
-            ...itemState,
+        setViewerState(
+            {...viewerState,
+                [index]: {...viewerState[index],
+                    widgetDropdownArray:[...viewerState[index].widgetDropdownArray,value],
+                     viewerLayout:{
+                    ...viewerState[index].viewerLayout,
+                    widgetStates:{
+                        // {widgetLayout:[], widgetItems:[]
+                        ...viewerState[index].viewerLayout.widgetStates,
+                        widgetLayout: [...viewerState[index].viewerLayout.widgetStates.widgetLayout,
+                            {
+                                i: value,
+                                x: (viewerState[index].viewerLayout.widgetStates.widgetItems.length * 2) % (viewerState[index].viewerLayout.widgetStates.widgetItems.cols || 12),
+                                y: Infinity, // puts it at the bottom
+                                w: 2,
+                                h: 2,
+                                resizeHandles: availableHandles
+                            }],
+                        widgetItems: viewerState[index].viewerLayout.widgetStates.widgetItems.concat({
+                            i: value,
+                            x: (viewerState[index].viewerLayout.widgetStates.widgetItems.length * 2) % (viewerState[index].viewerLayout.widgetStates.widgetItems.cols || 12),
+                            y: Infinity, // puts it at the bottom
+                            w: 2,
+                            h: 2,
+                            resizeHandles: availableHandles
+                        })
+                    }
+                     }
+            }
+            }
+            );
+
+        // const viewerProperties ={
+        //     i: value,
+        //     a: "ho",
+        //     viewerName: viewerName
+        // }
+        //
+        // const checkIfSelectedIndexInStore =()=>{
+        //     const selectedViewerIndex= viewers.findIndex((i)=>{
+        //         console.log("i.viewerName",i.viewerName);
+        //         console.log("viewerName",viewerName);
+        //         return i.viewerName === viewerName;
+        //     });
+        //     console.log("selectedViewerIndex",selectedViewerIndex);
+        //     // if cannot find index--> then u create
+        //     if(selectedViewerIndex===-1){
+        //         console.log("viewerProperties",viewerProperties);
+        //         createViewer(viewerProperties);
+        //     }
+        //     // if found index--> then u update
+        //
+        // }
+        // checkIfSelectedIndexInStore();
+        // const layout =[{
+        //     i: value,
+        //     x: (widgetItems.length * 2) % (widgetCol || 12),
+        //     y: Infinity, // puts it at the bottom
+        //     w: 2,
+        //     h: 2,
+        //     resizeHandles: availableHandles
+        // }]
+        // const elementsIndex = itemState.findIndex(element => element.viewerName == name );
+        // console.log("elementsIndex",elementsIndex);
+
+        setItemState(
+            {
+                ...itemState,
+                viewerName: viewerName,
                 layout: itemState.layout.concat({
                     i: value,
                     x: (itemState.items.length * 2) % (itemState.cols || 12),
@@ -127,7 +195,8 @@ const OcdViewer = ({name})=>{
                 }),
                 // Increment the counter to ensure key is always unique.
                 newCounter: itemState.newCounter + 1
-            });
+            }
+            );
     };
     const DropdownSelection = () => (
         <Dropdown
@@ -139,15 +208,18 @@ const OcdViewer = ({name})=>{
     )
     return(
     <div className="ocd-viewer">
-    <div className="ocd-viewer-header">{name}header</div>
+    <div className="ocd-viewer-header">{viewerName}header{index}</div>
     <div className="ocd-viewer-main">
         <BoundedLayout
-            retrievalOfItems={retrievalOfItems}
+            //retrievalOfItems={retrievalOfItems}
             itemState={itemState}
             widgetOptionSelection={widgetOptionSelection}
             setWidgetOptionsArray={setWidgetOptionsArray}
             setItemState={setItemState}
             saveClick={saveClick}
+            setViewerState={setViewerState}
+            viewerState={viewerState}
+            index={index}
         >
         </BoundedLayout>
     </div>
@@ -157,10 +229,11 @@ const OcdViewer = ({name})=>{
         <Button
             className="add-widget-button"
             disabled={JSON.stringify(itemState) === JSON.stringify(resState)}
-            onClick={
-                ()=>{saveOrEdit(itemState,resState)
-            setSaveClick(!saveClick)
-        }}>Save & Publish</Button>
+        //     onClick={
+        //         ()=>{saveOrEdit(itemState,resState)
+        //     setSaveClick(!saveClick)
+        // }}
+        >Save & Publish</Button>
     </div>
 </div>
 )

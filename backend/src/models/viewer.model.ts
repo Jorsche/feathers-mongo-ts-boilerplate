@@ -10,8 +10,10 @@ export default function (app: Application): Model<any> {
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    name: { type: String, required: true },
-    widgets: { type: Array, required: true }
+    viewerState: { type: Object, required: true },
+    breakpoint: { type: String, required: true },
+    cols: { type: Number, required: true },
+    layout: { type: Object, required: true }
   }, {
     timestamps: true
   });

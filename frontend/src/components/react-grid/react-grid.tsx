@@ -5,28 +5,55 @@ import "../react-grid/example-styles.css";
 import "../react-grid/styles.css";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-const BoundedLayout = ({
+const BoundedLayout = ({   index,
+                           viewerState,
+                           setViewerState,
                            retrievalOfItems,
                            itemState,
                            setItemState,
                            saveClick,
                            setWidgetOptionsArray,
-                           widgetOptionSelection
+                           widgetOptionSelection,
+                           setWidgetItems,
+                           removeWidgetItems,
+                           widgetLayouts,
+                           widgetItems,
+                           setWidgetLayout,
+                           setWidgetLayoutOnGridChange,
+                           setWidgetItemsOnBreakPtChange
+
 }) => {
     useEffect( ()=>{
-        retrievalOfItems();
+     //   retrievalOfItems();
     },[saveClick]);
-
     const onRemoveItem=(i: any)=> {
+        console.log("i",i);
+        setViewerState(
+            {...viewerState,
+                [index]: {...viewerState[index],
+              //      widgetDropdownArray:  _.reject(viewerState[index].widgetDropdownArray, { i: i }),
+                    viewerLayout:{
+                        ...viewerState[index].viewerLayout,
+                        widgetStates:{
+                            // {widgetLayout:[], widgetItems:[]
+                            ...viewerState[index].viewerLayout.widgetStates,
+                       widgetLayout: _.reject(viewerState[index].viewerLayout.widgetStates.widgetLayout, { i: i }),
+                       widgetItems:  _.reject(viewerState[index].viewerLayout.widgetStates.widgetItems, { i: i }),
+                        }
+                    }
+                }
+            }
+        );
+
         setItemState(
             {
                 ...itemState,
                 layout: _.reject(itemState.layout, { i: i }),
                 items: _.reject(itemState.items, { i: i }) });
+
         setWidgetOptionsArray([...widgetOptionSelection, {key:i,text:i,value:i}])
     }
-
-    const createElement=(el: { i: any; })=> {
+    const createElement=(el,index)=> {
         const removeStyle = {
             position: "absolute",
             right: "2px",
@@ -46,18 +73,50 @@ const BoundedLayout = ({
             </div>
         );
     }
-
     const onBreakpointChange=(breakpoint, cols)=> {
-        console.log("breakptChange");
+        setViewerState(
+            {...viewerState,
+                [index]: {...viewerState[index],
+                    //      widgetDropdownArray:  _.reject(viewerState[index].widgetDropdownArray, { i: i }),
+                    viewerLayout:{
+                        ...viewerState[index].viewerLayout,
+                        widgetStates:{
+                            // {widgetLayout:[], widgetItems:[]
+                            ...viewerState[index].viewerLayout.widgetStates,
+                            breakpoint: breakpoint,
+                            cols: cols
+                        }
+                    }
+                }
+            }
+        );
+        //todo
         setItemState({
             ...itemState,
             breakpoint: breakpoint,
             cols: cols
         });
     }
-
     const onGridLayoutChange=(layout: any)=> {
-        console.log("onGridLayoutChange");
+        console.log("layout",layout);
+        setViewerState(
+            {...viewerState,
+                [index]: {...viewerState[index],
+                    //      widgetDropdownArray:  _.reject(viewerState[index].widgetDropdownArray, { i: i }),
+                    viewerLayout:{
+                        ...viewerState[index].viewerLayout,
+                        widgetStates:{
+                            // {widgetLayout:[], widgetItems:[]
+                            ...viewerState[index].viewerLayout.widgetStates,
+                            widgetLayout: layout,
+                            widgetItems: layout
+                        }
+                    }
+                }
+            }
+        );
+
+       //todo
         setItemState(
             {
             ...itemState,
@@ -68,18 +127,19 @@ const BoundedLayout = ({
         return (
             <div>
                 {/*<button onClick={onAddItem}>Add Item</button>*/}
-                {itemState!==null &&
                 <ResponsiveReactGridLayout
                     isBounded={true}
                     onBreakpointChange={onBreakpointChange}
                     onLayoutChange={onGridLayoutChange}
                 >
-                    { _.map(itemState.layout, el => createElement(el))}
-                </ResponsiveReactGridLayout>}
+                    {
+                        viewerState[index].viewerLayout.widgetStates.widgetLayout.map((el,index)=>(createElement(el, index)))
+                    }
+                    {/*{ _.map(itemState.layout, el => createElement(el))}*/}
+                </ResponsiveReactGridLayout>
             </div>
         );
 }
-
 
 
 
