@@ -11,8 +11,8 @@ export default function (app: Application): Model<any> {
   const { Schema } = mongooseClient;
   const schema = new Schema({
     viewerState: { type: Object, required: true },
-    breakpoint: { type: String, required: true },
-    cols: { type: Number, required: true },
+    breakpoint: { type: String },
+    cols: { type: Number},
     layout: { type: Object, required: true }
   }, {
     timestamps: true

@@ -3,13 +3,10 @@ import favicon from 'serve-favicon';
 import compress from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
-
 import feathers from '@feathersjs/feathers';
 import configuration from '@feathersjs/configuration';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
-
-
 import { Application } from './declarations';
 import logger from './logger';
 import middleware from './middleware';
