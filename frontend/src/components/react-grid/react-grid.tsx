@@ -3,54 +3,36 @@ import _ from "lodash";
 import  { WidthProvider,Responsive } from "react-grid-layout";
 import "../react-grid/example-styles.css";
 import "../react-grid/styles.css";
+// import "./new-react-grid.css"
+// import "./new-react-grid-resizable.css"
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-const BoundedLayout = ({   index,
-                           viewerState,
-                           setViewerState,
-                           retrievalOfItems,
-                           itemState,
-                           setItemState,
-                           saveClick,
+const BoundedLayout = ({
+                           setIndViewerState,
+                           indViewerState,
                            setWidgetOptionsArray,
-                           widgetOptionSelection,
-                           setWidgetItems,
-                           removeWidgetItems,
-                           widgetLayouts,
-                           widgetItems,
-                           setWidgetLayout,
-                           setWidgetLayoutOnGridChange,
-                           setWidgetItemsOnBreakPtChange
+                           widgetOptionSelection
 
 }) => {
-    useEffect( ()=>{
-     //   retrievalOfItems();
-    },[saveClick]);
+    console.log("indViewerStateREACTGRID",indViewerState);
     const onRemoveItem=(i: any)=> {
-        console.log("i",i);
-        setViewerState(
-            {...viewerState,
-                [index]: {...viewerState[index],
-              //      widgetDropdownArray:  _.reject(viewerState[index].widgetDropdownArray, { i: i }),
-                    viewerLayout:{
-                        ...viewerState[index].viewerLayout,
-                        widgetStates:{
-                            // {widgetLayout:[], widgetItems:[]
-                            ...viewerState[index].viewerLayout.widgetStates,
-                       widgetLayout: _.reject(viewerState[index].viewerLayout.widgetStates.widgetLayout, { i: i }),
-                       widgetItems:  _.reject(viewerState[index].viewerLayout.widgetStates.widgetItems, { i: i }),
+        console.log("i",typeof i);
+       setIndViewerState({
+                ...indViewerState,
+                viewerState: {
+                    ...indViewerState.viewerState,
+                    //todo why not working
+                    widgetDropdownArray: indViewerState.viewerState.widgetDropdownArray.filter((val)=>(val!==i)),
+                    viewerLayout: {
+                        ...indViewerState.viewerState.viewerLayout,
+                        widgetStates: {
+                            ...indViewerState.viewerState.viewerLayout.widgetStates,
+                            widgetLayout: _.reject(indViewerState.viewerState.viewerLayout.widgetStates.widgetLayout, { i: i }),
+                            widgetItems:  _.reject(indViewerState.viewerState.viewerLayout.widgetStates.widgetItems, { i: i }),
                         }
                     }
                 }
-            }
-        );
-
-        setItemState(
-            {
-                ...itemState,
-                layout: _.reject(itemState.layout, { i: i }),
-                items: _.reject(itemState.items, { i: i }) });
-
+            });
         setWidgetOptionsArray([...widgetOptionSelection, {key:i,text:i,value:i}])
     }
     const createElement=(el,index)=> {
@@ -74,58 +56,39 @@ const BoundedLayout = ({   index,
         );
     }
     const onBreakpointChange=(breakpoint, cols)=> {
-        setViewerState(
-            {...viewerState,
-                [index]: {...viewerState[index],
-                    //      widgetDropdownArray:  _.reject(viewerState[index].widgetDropdownArray, { i: i }),
+    setIndViewerState({...indViewerState,
+                viewerState:{
+                    ...indViewerState.viewerState,
                     viewerLayout:{
-                        ...viewerState[index].viewerLayout,
+                        ...indViewerState.viewerState.viewerLayout,
                         widgetStates:{
-                            // {widgetLayout:[], widgetItems:[]
-                            ...viewerState[index].viewerLayout.widgetStates,
-                            breakpoint: breakpoint,
-                            cols: cols
+                            ...indViewerState.viewerState.viewerLayout.widgetStates,
+                            breakpoint:breakpoint,
+                            cols:cols
                         }
                     }
                 }
-            }
-        );
-        //todo
-        setItemState({
-            ...itemState,
-            breakpoint: breakpoint,
-            cols: cols
-        });
+            });
     }
     const onGridLayoutChange=(layout: any)=> {
-        console.log("layout",layout);
-        setViewerState(
-            {...viewerState,
-                [index]: {...viewerState[index],
-                    //      widgetDropdownArray:  _.reject(viewerState[index].widgetDropdownArray, { i: i }),
-                    viewerLayout:{
-                        ...viewerState[index].viewerLayout,
-                        widgetStates:{
-                            // {widgetLayout:[], widgetItems:[]
-                            ...viewerState[index].viewerLayout.widgetStates,
-                            widgetLayout: layout,
-                            widgetItems: layout
-                        }
+       // setNewLayout(layout)
+      setIndViewerState({...indViewerState,
+            viewerState:{
+                ...indViewerState.viewerState,
+                viewerLayout:{
+                    ...indViewerState.viewerState.viewerLayout,
+                    widgetStates:{
+                        ...indViewerState.viewerState.viewerLayout.widgetStates,
+                        widgetLayout: layout,
+                        widgetItems: layout
                     }
                 }
             }
-        );
-
-       //todo
-        setItemState(
-            {
-            ...itemState,
-            layout: layout
         });
     }
 
         return (
-            <div>
+             <div>
                 {/*<button onClick={onAddItem}>Add Item</button>*/}
                 <ResponsiveReactGridLayout
                     isBounded={true}
@@ -133,7 +96,7 @@ const BoundedLayout = ({   index,
                     onLayoutChange={onGridLayoutChange}
                 >
                     {
-                        viewerState[index].viewerLayout.widgetStates.widgetLayout.map((el,index)=>(createElement(el, index)))
+                        indViewerState?.viewerState?.viewerLayout?.widgetStates?.widgetLayout?.map((el,index)=>(createElement(el, index)))
                     }
                     {/*{ _.map(itemState.layout, el => createElement(el))}*/}
                 </ResponsiveReactGridLayout>

@@ -1,10 +1,12 @@
 import io from 'socket.io-client';
 import feathers from '@feathersjs/client';
+import rx from 'feathers-reactive';
 
 const socket = io('http://localhost:3030');
 const client = feathers();
 
 client.configure(feathers.socketio(socket));
+client.configure(rx({ idField: '_id' }));
 
 
 export default client;
