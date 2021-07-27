@@ -5,10 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'fomantic-ui-css/semantic.min.css';
 import 'semantic-ui-css/semantic.min.css'
+import { ThemeProvider } from "@material-ui/styles";
+import Themes from "./themes";
 
 ReactDOM.render(
-            <App />
-   ,
+    <ThemeProvider theme={Themes.default}>
+    <App />
+    </ThemeProvider>
+    ,
     document.getElementById('root')
 );
 

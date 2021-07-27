@@ -1,11 +1,23 @@
-.controller-container {
-    background-color: #282c34;
-    height: 100%;
-    width: 100%;
-}
+/*.controller-container {*/
+/*    background-color: red;*/
+/*    height: 100% !important;*/
+/*    width: 100% !important;*/
+/*    left: 0 !important;*/
+/*    top:0 !important;*/
+/*}*/
 
 .controller-footer{
     justify-content: flex-end;
     display: flex;
 }
+/*.controller-body .react-grid-layout{*/
+/*    height: border-box !important;*/
+/*}*/
 
+.controller-body .react-grid-layout > .react-grid-item{
+    background: #ccc;
+}
+/*.react-grid-item:not(.react-grid-placeholder) {
+    background: #ccc;
+    !*border: 1px solid black;*!
+}*/

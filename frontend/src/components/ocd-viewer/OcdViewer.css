@@ -1,53 +1,60 @@
-.ocd-viewer{
-    background-color: #282c34;
-    display: flex;
-    flex-direction: column;
-    /*width: 300px;*/
-    max-height: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    /*height:300px;*/
-    /*width:300px;*/
+.item{
+    color:white;
+    text-align: center;
 }
 
-.ocd-viewer-header{
-    background-color: red;
-    height: 10%; /* Or whatever */
-}
-
-.ocd-viewer-main{
-    background-color: blue;
-    height: 80%; /* Or whatever */
-}
-
-.ocd-viewer-footer{
-    background-color: brown;
-    height: 10%; /* Or whatever */
-    display: flex;
-    justify-content: flex-end;
-    box-sizing: border-box;
-    /*//height:100%;*/
-    /*width:100%;*/
-}
-
-
-.ui.button.add-widget-button{
-    background-color: #61dafb;
-    width: 20%;
-    /*box-sizing: border-box;*/
-    /*height:100%;*/
-    /*width:100%;*/
-}
-.dropdownSelection{
-    width: 50% !important;
-    background-color: #282c34 !important;
-    max-height: inherit !important;
-    max-width: inherit !important;
-    box-sizing:border-box !important;
-}
-/*.ocd-viewer-footer .dropdownSelection{*/
-/*    background-color: #282c34 !important;*/
-
+/*.ocd-viewer{*/
+/*    background-color: #282c34;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    !*width: 300px;*!*/
+/*    !*max-height: 100%;*!*/
+/*    !*max-width: 100%;*!*/
+/*    height:auto;*/
+/*    width: auto;*/
+/*    box-sizing: border-box;*/
+/*    !*height:300px;*!*/
+/*    !*width:300px;*!*/
 /*}*/
+
+/*.ocd-viewer-header{*/
+/*    background-color: red;*/
+/*    height: 10%; !* Or whatever *!*/
+/*}*/
+
+/*.ocd-viewer-main{*/
+/*    background-color: blue;*/
+/*    height: 80%; !* Or whatever *!*/
+/*}*/
+
+/*.ocd-viewer-footer{*/
+/*    background-color: brown;*/
+/*    height: 10%; !* Or whatever *!*/
+/*    display: flex;*/
+/*    justify-content: flex-end;*/
+/*    box-sizing: border-box;*/
+/*    !/height:100%;*!*!*/
+/*    !*width:100%;*!*/
+/*}*/
+
+
+/*.ui.button.add-widget-button{*/
+/*    background-color: #61dafb;*/
+/*    width: 20%;*/
+/*    !*box-sizing: border-box;*!*/
+/*    !*height:100%;*!*/
+/*    !*width:100%;*!*/
+/*}*/
+/*.dropdownSelection{*/
+/*    width: 50% !important;*/
+/*    background-color: #282c34 !important;*/
+/*    max-height: inherit !important;*/
+/*    max-width: inherit !important;*/
+/*    box-sizing:border-box !important;*/
+/*}*/
+/*!*.ocd-viewer-footer .dropdownSelection{*!*/
+/*!*    background-color: #282c34 !important;*!*/
+
+/*!*}*!*/
 
 

@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import _ from "lodash";
-import  { WidthProvider,Responsive } from "react-grid-layout";
+import '../../../../frontend/node_modules/react-grid-layout/css/styles.css';
+import '../../../../frontend/node_modules/react-resizable/css/styles.css';
+import GridLayout, { WidthProvider,Responsive } from "react-grid-layout";
 import "../react-grid/example-styles.css";
 import "../react-grid/styles.css";
 // import "./new-react-grid.css"
@@ -11,17 +13,22 @@ const BoundedLayout = ({
                            setIndViewerState,
                            indViewerState,
                            setWidgetOptionsArray,
-                           widgetOptionSelection
+                           widgetOptionSelection,
+                           viewerWidth,
+                           viewerHeight
 
 }) => {
+
+    // useEffect(()=>{
+    //     console.log("reactgridRender");
+    // },[indViewerState]);
+
     console.log("indViewerStateREACTGRID",indViewerState);
     const onRemoveItem=(i: any)=> {
-        console.log("i",typeof i);
        setIndViewerState({
                 ...indViewerState,
                 viewerState: {
                     ...indViewerState.viewerState,
-                    //todo why not working
                     widgetDropdownArray: indViewerState.viewerState.widgetDropdownArray.filter((val)=>(val!==i)),
                     viewerLayout: {
                         ...indViewerState.viewerState.viewerLayout,
@@ -71,7 +78,6 @@ const BoundedLayout = ({
             });
     }
     const onGridLayoutChange=(layout: any)=> {
-       // setNewLayout(layout)
       setIndViewerState({...indViewerState,
             viewerState:{
                 ...indViewerState.viewerState,
@@ -89,17 +95,21 @@ const BoundedLayout = ({
 
         return (
              <div>
-                {/*<button onClick={onAddItem}>Add Item</button>*/}
-                <ResponsiveReactGridLayout
-                    isBounded={true}
-                    onBreakpointChange={onBreakpointChange}
+                 <GridLayout
+                    // isBounded={true}
+                     onBreakpointChange={onBreakpointChange}
                     onLayoutChange={onGridLayoutChange}
+                    // layout={theLayout}
+                    width={viewerWidth}
+                    cols={viewerWidth}
+                     //rowHeight={1}
+                     // width={window.innerWidth}
+                   containerPadding={[0,0]}
                 >
                     {
                         indViewerState?.viewerState?.viewerLayout?.widgetStates?.widgetLayout?.map((el,index)=>(createElement(el, index)))
                     }
-                    {/*{ _.map(itemState.layout, el => createElement(el))}*/}
-                </ResponsiveReactGridLayout>
+                 </GridLayout>
             </div>
         );
 }

@@ -1,4 +1,4 @@
-// viewer-model.ts - A mongoose model
+// ocdViewer-model.ts - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
@@ -6,12 +6,11 @@ import { Application } from '../declarations';
 import { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
-  const modelName = 'viewer';
+  const modelName = 'ocdViewer';
   const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    viewerLayout: { type: Object, required: true },
-    widgetLayout: { type: Array, required: true },
+    viewerLayouts: {type:Array, required:true}
   }, {
     timestamps: true
   });

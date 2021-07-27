@@ -1,13 +1,31 @@
 .App {
   background-color: red;
   font-family: sans-serif;
-  text-align: center;
+  text-align: center !important;
 }
 
 body{
-  background-color: grey;
-  background-image: url("./images/wallpaper1.png");
-  background-size: cover;
-  /*background-repeat: repeat-y;*/
-  background-position: center;
+  background-color: grey !important;
+  /*background-image: url("./images/wallpaper1.png") !important;*/
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.appContainer{
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.widgetContainer{
+  display:flex;
+  border-style:solid;
+  justify-content: center;
+  color: white !important;
+
+}
+
+.widgetDiv{
+  background-color: blue;
+  width: 100px;
+  color: white !important;
 }
