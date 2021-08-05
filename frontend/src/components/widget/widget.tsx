@@ -31,7 +31,7 @@ export default function Widget({
     var [isMoreMenuOpen, setMoreMenuOpen] = useState(false);
 
     return (
-        <div className={classes.widgetWrapper} style={{width:300}}>
+        <div className={classes.widgetWrapper}>
             <Paper className={classes.paper} classes={{ root: classnames(classes.widgetRoot, {
                     [classes.noWidgetShadow]: noWidgetShadow
                 }) }}>

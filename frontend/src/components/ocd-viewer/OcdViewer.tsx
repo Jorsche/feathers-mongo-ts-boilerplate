@@ -6,8 +6,10 @@ import GridLayout from 'react-grid-layout';
 import _ from "lodash";
 
 const OcdViewer = ({   viewer,
-                       dragElement
+                       dragElement,
+                       newWidgetArr
 })=>{
+    console.log("dragElement",dragElement);
     const [individualViewerState, setIndividualViewerState] = useState({});
     const viewerService = client.service('viewer');
     useEffect(()=>{
@@ -58,7 +60,8 @@ const OcdViewer = ({   viewer,
     const onDrop = (layout, layoutItem, _event) => {
         const findDroppableElement = layout.find((ly)=>{return (ly.i === "__dropping-elem__")});
         if (findDroppableElement!==undefined){
-            const modifyIinDropElement = {...findDroppableElement, i:dragElement, w:500 ,h:50 }
+            const modifyIinDropElement = {...findDroppableElement, i:dragElement, w:500 ,h:50, widgetCmpt: dragElement.cmpt }
+            console.log("modifyIinDropElement",modifyIinDropElement);
             const foundIndex = layout.findIndex(indexObj=> indexObj.i === "__dropping-elem__");
             const diffEle = !individualViewerState.widgetLayout.find((e) => {return e.i === dragElement});
             if(foundIndex!== -1 && diffEle) {
@@ -70,9 +73,12 @@ const OcdViewer = ({   viewer,
         }
     };
     const handleLayoutChange = (widgetLayoutState: any)=>{
-        setIndividualViewerState({...individualViewerState,
-            widgetLayout:widgetLayoutState
-        })
+        //todo widgetLayoutState take away my widgetCmpt obj.
+            setIndividualViewerState({
+                ...individualViewerState,
+                widgetLayout: widgetLayoutState
+            })
+
     }
 
     const onRemoveItem=(i: any)=> {
@@ -82,6 +88,14 @@ const OcdViewer = ({   viewer,
         });
     }
     console.log("individualViewerState",individualViewerState);
+
+    const onFlyRenderCmpt =(w)=>{
+        const findCmptElement = newWidgetArr.find((newWidget)=>{return (newWidget.widgetName === w.i)});
+        if(findCmptElement!==undefined){
+            return(findCmptElement.cmpt);
+        }
+        else return w.i;
+    }
     return(
         <div style={{
             width: viewer.viewerLayout.w,
@@ -105,8 +119,8 @@ const OcdViewer = ({   viewer,
                        overflow: "auto",
                        height: viewer.viewerLayout.h
                    }}
-                   useCSSTransforms={true}
-                   transformScale={0.75}
+                   //useCSSTransforms={true}
+                   //transformScale={0.75}
                    measureBeforeMount={true}
                    isDroppable={true}
                    rowHeight={1}
@@ -117,12 +131,14 @@ const OcdViewer = ({   viewer,
                    // layout={individualViewerState.widgetLayout}
                    // width={individualViewerState.viewerLayout.w}
                    // cols={individualViewerState.viewerLayout.w}
+
                    onLayoutChange={(widgetLayoutState) => handleLayoutChange(widgetLayoutState)}
                    containerPadding={[0, 0]}
                    verticalCompact={false}
                >
                    {
                        individualViewerState.widgetLayout && individualViewerState.widgetLayout.map((w,index) => {
+                           console.log("wwwwww",w);
                            return (
                                <div className="item"
                                     key={w.i}
@@ -134,19 +150,19 @@ const OcdViewer = ({   viewer,
                                         backgroundColor: "rgba(55,55,55,0.3)",
                                         backdropFilter: "blur(10px) brightness(0.5)"
                                     }}>
-                                   {w.i}
-        {/*                           <Button*/}
-        {/*                               className="remove"*/}
-        {/*                               style={{*/}
-        {/*                                   position: "absolute",*/}
-        {/*                                   right: "60px",*/}
-        {/*                                   top: 0,*/}
-        {/*                                   cursor: "pointer"*/}
-        {/*                               }}*/}
-        {/*                               onClick={()=>{onRemoveItem(w.i)}}*/}
-        {/*                           >*/}
-        {/*  x*/}
-        {/*</Button>*/}
+                                   {onFlyRenderCmpt(w)}
+                                   <Button
+                                       className="remove"
+                                       style={{
+                                           position: "absolute",
+                                           right: "60px",
+                                           top: 0,
+                                           cursor: "pointer"
+                                       }}
+                                       onClick={()=>{onRemoveItem(w.i)}}
+                                   >
+          x
+        </Button>
                                </div>
                            )
                        })

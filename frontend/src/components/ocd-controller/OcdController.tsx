@@ -12,6 +12,7 @@ const OcdController = ({
                            dragElement,
                            viewersState,
                            setViewersState,
+                           newWidgetArr
                         }) => {
 
     const onGridLayoutChange = (layout: any) => {
@@ -66,6 +67,7 @@ const OcdController = ({
                             saveClick={saveClick}
                             retrievalOfItems={retrievalOfItems}
                             dragElement={dragElement}
+                            newWidgetArr={newWidgetArr}
                         >
                         </OcdViewer>
                     </div>
