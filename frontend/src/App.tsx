@@ -9,19 +9,8 @@ import '../node_modules/react-resizable/css/styles.css';
 import _ from "lodash";
 import Widget from "./components/widget/widget";
 import { useTheme } from "@material-ui/styles";
-import {
-    ResponsiveContainer,
-    ComposedChart,
-    AreaChart,
-    LineChart,
-    Line,
-    Area,
-    PieChart,
-    Pie,
-    Cell,
-    YAxis,
-    XAxis, Dot,
-} from "recharts";
+import {ResponsiveContainer, PieChart, Pie, Cell, Dot,
+}from "recharts";
 import useStyles from "./styles";
 import {Typography,Grid,LinearProgress} from "@material-ui/core";
 import {Button} from "semantic-ui-react";
@@ -34,8 +23,9 @@ function App() {
     var classes = useStyles();
     var theme = useTheme();
     const [viewersState, setViewersState] = useState({});
-    const widgetArray= ["Widget1","Widget2","Widget3","Widget4","Manpower","Events"]
-    const newWidgetArr= [{widgetName:"Manpower", cmpt:  <Widget title="Manpower" upperTitle className={classes.card}>
+    // @ts-ignore
+    const newWidgetArr= [{widgetName:"Manpower", cmpt:
+            <Widget title="Manpower" upperTitle className={classes.card}>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <ResponsiveContainer width={100} height={100}>
@@ -82,11 +72,136 @@ function App() {
         {
         widgetName: "Events",
         cmpt:     <Widget
-            title="Events"
-            upperTitle
-            className={classes.card}
-            bodyClass={classes.fullHeightBody}
-        >
+                        title="Events"
+                        upperTitle
+                        className={classes.card}
+                        bodyClass={classes.fullHeightBody}
+                        >
+                        <div>
+                        <Button
+                        onClick={()=>{alert("Button clicked")}}
+                        >button</Button>
+                        </div>
+                        <div className={classes.progressSection}>
+                        <Typography
+                        size="md"
+                        color="text"
+                        colorBrightness="secondary"
+                        className={classes.progressSectionTitle}
+                        >
+                        SAF day
+                        </Typography>
+                        <LinearProgress
+                        variant="determinate"
+                        value={99}
+                        classes={{ barColorPrimary: classes.progressBarPrimary }}
+                        className={classes.progress}
+                />
+            </div>
+            <div>
+                <Typography
+                    size="md"
+                    color="text"
+                    colorBrightness="secondary"
+                    className={classes.progressSectionTitle}
+                >
+                    Live Firing
+                </Typography>
+                <LinearProgress
+                    variant="determinate"
+                    value={50}
+                    classes={{ barColorPrimary: classes.progressBarWarning }}
+                    className={classes.progress}
+                />
+            </div>
+            <div>
+                <Typography
+                    size="md"
+                    color="text"
+                    colorBrightness="secondary"
+                    className={classes.progressSectionTitle}
+                >
+                    Innovation Day
+                </Typography>
+                <LinearProgress
+                    variant="determinate"
+                    value={20}
+                    classes={{ barColorPrimary: classes.progressBarPrimary }}
+                    className={classes.progress}
+                />
+            </div>
+            <div>
+                <Typography
+                    size="md"
+                    color="text"
+                    colorBrightness="secondary"
+                    className={classes.progressSectionTitle}
+                >
+                    Innovation Day
+                </Typography>
+                <LinearProgress
+                    variant="determinate"
+                    value={73}
+                    classes={{ barColorPrimary: classes.progressBarWarning }}
+                    className={classes.progress}
+                />
+            </div>
+        </Widget>
+    }];
+
+    const newNewWidgetArr= [
+        {widgetName:"Manpower",
+            cmpt:  <Widget title="Manpower" upperTitle className={classes.card}>
+            <Grid container spacing={2}>
+                <Grid item xs={6}>
+                    <ResponsiveContainer width={100} height={100}>
+                        <PieChart>
+                            <Pie
+                                data={PieChartData}
+                                innerRadius={30}
+                                outerRadius={40}
+                                dataKey="value"
+                            >
+                                {PieChartData.map((entry, index) => (
+                                    <Cell
+                                        key={`cell-${index}`}
+                                        fill={theme.palette[entry.color].main}
+                                    />
+                                ))}
+                            </Pie>
+                        </PieChart>
+                    </ResponsiveContainer>
+                </Grid>
+                <Grid item xs={6}>
+                    <div className={classes.pieChartLegendWrapper}>
+                        {PieChartData.map(({ name, value, color }, index) => (
+                            <div key={color} className={classes.legendItemContainer}>
+                                <Dot color={color} />
+                                <Typography style={{ whiteSpace: "nowrap", fontSize: 12 }} >
+                                    &nbsp;{name}&nbsp;
+                                </Typography>
+                                <Typography color="text" colorBrightness="secondary">
+                                    &nbsp;{value}
+                                </Typography>
+                            </div>
+                        ))}
+                        <div>
+                            <Button
+                            onClick={()=>{alert("Button clicked")}}
+                            >button</Button>
+                        </div>
+                    </div>
+                </Grid>
+            </Grid>
+        </Widget>
+    },
+        {widgetName: "Events",
+        cmpt:<Widget title="Events" upperTitle className={classes.card} bodyClass={classes.fullHeightBody}>
+            <div>
+                <Button
+                    onClick={()=>{alert("Button clicked")}}
+                >button</Button>
+            </div>
             <div className={classes.progressSection}>
                 <Typography
                     size="md"
@@ -151,8 +266,16 @@ function App() {
                     className={classes.progress}
                 />
             </div>
+
         </Widget>
-    }];
+    },
+        {widgetName:"WidgetA", cmpt:undefined},
+        {widgetName:"WidgetB", cmpt:undefined},
+        {widgetName:"WidgetC", cmpt:undefined},
+        {widgetName:"WidgetD", cmpt:undefined},
+        {widgetName:"WidgetE", cmpt:undefined}
+    ];
+
     const [saveClick, setSaveClick] = useState(false);
     const [dragElement, setDragElement]= useState("");
     const viewerService = client.service('viewer');
@@ -193,6 +316,7 @@ function App() {
         setOcdLayoutLock(!ocdLayoutLock);
     };
     const routeComponents = !_.isEmpty(viewersState) && viewersState.map((viewerRoute)=>{
+        console.log("viewerRoute",viewerRoute);
         return <Route path={`/${viewerRoute.viewerLayout.i}`}>
             <div style={{
                 width:viewerRoute.viewerLayout.w,
@@ -257,28 +381,17 @@ function App() {
                        zIndex:1}}
                    >
 
-                       {widgetArray.map((widget)=>{
+                       {newNewWidgetArr.map((widget)=>{
                           return <div
-                               className={`widgetDiv ${widget}`}
+                               className={`widgetDiv ${widget.widgetName}`}
                                draggable={true}
                                unselectable="on"
                                onDragStart={e => {
                                    setDragElement(widget);
                                    e.dataTransfer.setData("text/plain", "")
                                }}
-                           >{widget}</div>
+                           >{widget.widgetName}</div>
                        })}
-                       {/*{widgetArray.map((widget)=>{*/}
-                       {/*    return <div*/}
-                       {/*        className={`widgetDiv ${widget}`}*/}
-                       {/*        draggable={true}*/}
-                       {/*        unselectable="on"*/}
-                       {/*        onDragStart={e => {*/}
-                       {/*            setDragElement(widget);*/}
-                       {/*            e.dataTransfer.setData("text/plain", "")*/}
-                       {/*        }}*/}
-                       {/*    >{widget}</div>*/}
-                       {/*})}*/}
                    </div>
                    <div className="controller-footer">
                        <button style={{zIndex:3, margin:"10px", position: "fixed", right:30, bottom:0, fontSize:"40px"}} onClick={()=>{zoom(true);}} type="button">+</button>

@@ -11,6 +11,7 @@ import classnames from "classnames";
 // styles
 import useStyles from "./styles";
 
+// @ts-ignore
 export default function Widget({
                                    children,
                                    title,

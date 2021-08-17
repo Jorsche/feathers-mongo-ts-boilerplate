@@ -44,7 +44,7 @@ const OcdController = ({
             rowHeight={1}
             containerPadding={[0,0]}
             onLayoutChange={(layout)=> onGridLayoutChange(layout)}
-            // onLayoutChange={(layout)=> onGridLayoutChange(layout)}
+           useCSSTransforms={true}
             verticalCompact={false}
             style={{border: "solid yellow 2px"}}
         >

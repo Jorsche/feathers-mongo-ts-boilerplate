@@ -15,6 +15,13 @@ const OcdViewer = ({   viewer,
     useEffect(()=>{
         setIndividualViewerState(viewer);
     },[viewer]);
+
+    // useEffect(()=>{
+    //     viewerService.patch(individualViewerState._id, individualViewerState);
+    // },[individualViewerState]);
+
+    console.log("viewer",viewer);
+
     const onSave=()=>{
         viewerService.patch(individualViewerState._id, individualViewerState);
           //  .then(() => {retrievalOfItems()});
@@ -58,10 +65,10 @@ const OcdViewer = ({   viewer,
     };
 
     const onDrop = (layout, layoutItem, _event) => {
+        console.log("onDrop");
         const findDroppableElement = layout.find((ly)=>{return (ly.i === "__dropping-elem__")});
         if (findDroppableElement!==undefined){
-            const modifyIinDropElement = {...findDroppableElement, i:dragElement, w:500 ,h:50, widgetCmpt: dragElement.cmpt }
-            console.log("modifyIinDropElement",modifyIinDropElement);
+            const modifyIinDropElement = {...findDroppableElement, i:dragElement.widgetName, w:500 ,h:50, widgetCmpt: dragElement.cmpt }
             const foundIndex = layout.findIndex(indexObj=> indexObj.i === "__dropping-elem__");
             const diffEle = !individualViewerState.widgetLayout.find((e) => {return e.i === dragElement});
             if(foundIndex!== -1 && diffEle) {
@@ -69,15 +76,29 @@ const OcdViewer = ({   viewer,
                 setIndividualViewerState({...individualViewerState,
                 widgetLayout:layout
                 })
-            }
-        }
+                console.log("individualViewerStateRightAfterOnDrop",individualViewerState);
+            }}
     };
     const handleLayoutChange = (widgetLayoutState: any)=>{
+        console.log("handleLayoutChange");
+
+        // const modifiedWidgetLayoutState = widgetLayoutState.map(function(x){
+        //     var result=newWidgetArr.filter(a1=> a1.widgetName==x.i);
+        //     if(result.length>0) {
+        //          x.widgetCmpt=result[0];
+        //     }
+        //     return x })
+
+        console.log("widgetLayoutState",widgetLayoutState);
+    // console.log("modifiedWidgetLayoutState",modifiedWidgetLayoutState);
+
         //todo widgetLayoutState take away my widgetCmpt obj.
-            setIndividualViewerState({
+
+        setIndividualViewerState({
                 ...individualViewerState,
                 widgetLayout: widgetLayoutState
             })
+       // viewerService.patch(individualViewerState._id, individualViewerState);
 
     }
 
@@ -89,21 +110,25 @@ const OcdViewer = ({   viewer,
     }
     console.log("individualViewerState",individualViewerState);
 
-    const onFlyRenderCmpt =(w)=>{
+   const onFlyRenderCmpt =(w)=>{
         const findCmptElement = newWidgetArr.find((newWidget)=>{return (newWidget.widgetName === w.i)});
         if(findCmptElement!==undefined){
             return(findCmptElement.cmpt);
         }
         else return w.i;
     }
+
+    let layout =individualViewerState.widgetLayout!==undefined ? _.cloneDeep(individualViewerState.widgetLayout):[];
+   //  layout.map((ly)=>{return ly.widgetCmpt ? delete ly.widgetCmpt : ly})
+     console.log("layout",layout);
+
     return(
         <div style={{
             width: viewer.viewerLayout.w,
             height: viewer.viewerLayout.h,
                // height: viewer.viewerLayout.h,
                overflow: "auto",
-            maxHeight: viewer.viewerLayout.h
-
+            maxHeight: viewer.viewerLayout.h,
         }}>
                <h1 style={{
                    color: "green",
@@ -119,19 +144,18 @@ const OcdViewer = ({   viewer,
                        overflow: "auto",
                        height: viewer.viewerLayout.h
                    }}
-                   //useCSSTransforms={true}
-                   //transformScale={0.75}
+                  useCSSTransforms={true}
                    measureBeforeMount={true}
+                   //transformScale={0.8}
                    isDroppable={true}
                    rowHeight={1}
                    onDrop={onDrop}
                    cols={window.innerWidth * 3}
                    width={window.innerWidth * 3}
-                   layout={individualViewerState.widgetLayout}
-                   // layout={individualViewerState.widgetLayout}
+                   // layout={layout}
+                    layout={individualViewerState.widgetLayout}
                    // width={individualViewerState.viewerLayout.w}
                    // cols={individualViewerState.viewerLayout.w}
-
                    onLayoutChange={(widgetLayoutState) => handleLayoutChange(widgetLayoutState)}
                    containerPadding={[0, 0]}
                    verticalCompact={false}
@@ -139,10 +163,12 @@ const OcdViewer = ({   viewer,
                    {
                        individualViewerState.widgetLayout && individualViewerState.widgetLayout.map((w,index) => {
                            console.log("wwwwww",w);
+                           // w.widgetCmpt
+                           //todo take out widgetCmpt from w
                            return (
                                <div className="item"
                                     key={w.i}
-                                    data-grid={w}
+                                   // data-grid={w}
                                     style={{
                                         overflow: "hidden",
                                         borderStyle: "solid",
