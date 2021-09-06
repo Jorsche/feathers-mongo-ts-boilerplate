@@ -1,0 +1,16 @@
+.notepad-div{
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.notepad,.form{
+    flex-grow: 5;
+    text-align: start;
+    min-height: 100%;
+}
+
+.save-button{
+
+}

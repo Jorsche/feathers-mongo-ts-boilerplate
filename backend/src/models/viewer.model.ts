@@ -12,6 +12,7 @@ export default function (app: Application): Model<any> {
   const schema = new Schema({
     viewerLayout: { type: Object, required: true },
     widgetLayout: { type: Array, required: true },
+    notepadText: { type: String},
   }, {
     timestamps: true
   });

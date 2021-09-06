@@ -8,6 +8,9 @@ import '../node_modules/react-grid-layout/css/styles.css';
 import '../node_modules/react-resizable/css/styles.css';
 import _ from "lodash";
 import Widget from "./components/widget/widget";
+import PdfWidget from "./components/widget/pdf/pdfWidget"
+import NotepadWidget from "./components/widget/notepad/notepadWidget"
+import IframeModal from "./components/widget/iframe/modal"
 import { useTheme } from "@material-ui/styles";
 import {ResponsiveContainer, PieChart, Pie, Cell, Dot,
 }from "recharts";
@@ -23,6 +26,10 @@ function App() {
     var classes = useStyles();
     var theme = useTheme();
     const [viewersState, setViewersState] = useState({});
+    const [saveClick, setSaveClick] = useState(false);
+    const [iframeOpen, setIframeOpen] = useState(false);
+    const [dragElement, setDragElement]= useState("");
+    const [selectedIndividualViewerState, setSelectedIndividualViewerState] = useState({});
     // @ts-ignore
     const newWidgetArr= [{widgetName:"Manpower", cmpt:
             <Widget title="Manpower" upperTitle className={classes.card}>
@@ -69,6 +76,9 @@ function App() {
             </Grid>
         </Widget>
     },
+    {widgetName:"Notepad", cmpt:<NotepadWidget selectedIndividualViewerState={selectedIndividualViewerState}/>},
+        {widgetName:"Pdf", cmpt:<PdfWidget/>},
+        {widgetName:"Iframe", cmpt:<IframeModal iframeOpen={iframeOpen} setIframeOpen={setIframeOpen}/>},
         {
         widgetName: "Events",
         cmpt:     <Widget
@@ -148,8 +158,12 @@ function App() {
             </div>
         </Widget>
     }];
-
     const newNewWidgetArr= [
+        {widgetName:"Pdf", cmpt:<PdfWidget/>},
+        {widgetName:"Notepad",
+            cmpt: <NotepadWidget selectedIndividualViewerState={selectedIndividualViewerState}/>},
+        {widgetName:"Iframe",
+            cmpt: <IframeModal iframeOpen={iframeOpen} setIframeOpen={setIframeOpen}/>},
         {widgetName:"Manpower",
             cmpt:  <Widget title="Manpower" upperTitle className={classes.card}>
             <Grid container spacing={2}>
@@ -275,21 +289,12 @@ function App() {
         {widgetName:"WidgetD", cmpt:undefined},
         {widgetName:"WidgetE", cmpt:undefined}
     ];
-
-    const [saveClick, setSaveClick] = useState(false);
-    const [dragElement, setDragElement]= useState("");
     const viewerService = client.service('viewer');
     const retrievalOfItems =async ()=>{
         const viewerResponse =await viewerService.find();
         const fetchViewerData = viewerResponse.data;
         setViewersState(fetchViewerData);
     }
-                    //todo
-    // const windowWidth = window.innerWidth;
-    // const windowHeight = window.innerHeight;
-    // useEffect(()=>{
-    // },[windowHeight,windowWidth])
-
     useEffect(() => {
         const syncSubscription = client
             .service("viewer")
@@ -303,7 +308,6 @@ function App() {
             if (syncSubscription) syncSubscription.unsubscribe();
         });
     }, []);
-
     const [zoomVal, setZoomVal] = useState(1);
     const zoom = (isZoom: boolean)=>{
         if(isZoom) setZoomVal(zoomVal+0.1);
@@ -315,6 +319,7 @@ function App() {
     const toggleOCDLock = ()=>{
         setOcdLayoutLock(!ocdLayoutLock);
     };
+    console.log("viewersState",viewersState);
     const routeComponents = !_.isEmpty(viewersState) && viewersState.map((viewerRoute)=>{
         console.log("viewerRoute",viewerRoute);
         return <Route path={`/${viewerRoute.viewerLayout.i}`}>
@@ -326,11 +331,13 @@ function App() {
                 border:"dashed yellow 2px",
                 zIndex:1}} >
                  <OcdViewer
+                     setIframeOpen={setIframeOpen}
                      newWidgetArr={newWidgetArr}
                      setSaveClick={setSaveClick}
                      saveClick={saveClick}
                      retrievalOfItems={retrievalOfItems}
                      viewer={viewerRoute}
+                     setSelectedIndividualViewerState={setSelectedIndividualViewerState}
                  />
             </div>
               </Route>
@@ -350,7 +357,10 @@ function App() {
         <BrowserRouter>
            <Switch>
                <Route path="/ocdController">
-                   <button style={{zIndex:3, position: "fixed", right:0, top:0}} onClick={toggleOCDLock} type="button">{ocdLayoutLock ? 'Unlock layout' : 'Lock Layout'}</button>
+                   <button style={{zIndex:3, position: "fixed", right:0, top:0}}
+                           onClick={toggleOCDLock} type="button">
+                       {ocdLayoutLock ? 'Unlock layout' : 'Lock Layout'}
+                   </button>
                    {navComponents}
                    <div style={{
                        width:window.innerWidth*3,
@@ -363,6 +373,7 @@ function App() {
                        {
                            !_.isEmpty(viewersState) &&
                            <OcdController
+                               setIframeOpen={setIframeOpen}
                                newWidgetArr={newWidgetArr}
                            setViewersState={setViewersState}
                            viewersState={viewersState}
@@ -371,8 +382,11 @@ function App() {
                            saveClick={saveClick}
                            isLock={ocdLayoutLock}
                            dragElement={dragElement}
+                               setSelectedIndividualViewerState={setSelectedIndividualViewerState}
                        ></OcdController>}
                   </div>
+                   {/*<PdfWidget></PdfWidget>*/}
+                    {/*<IframeModal></IframeModal>*/}
                    <div className={"widgetContainer"}
                    style={{
                    width:window.innerWidth,
@@ -380,7 +394,6 @@ function App() {
                        position: "fixed",
                        zIndex:1}}
                    >
-
                        {newNewWidgetArr.map((widget)=>{
                           return <div
                                className={`widgetDiv ${widget.widgetName}`}

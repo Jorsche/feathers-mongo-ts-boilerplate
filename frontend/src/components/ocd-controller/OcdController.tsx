@@ -5,6 +5,7 @@ import '../../App.css';
 
 
 const OcdController = ({
+                           setIframeOpen,
                            retrievalOfItems,
                            setSaveClick,
                            saveClick,
@@ -12,7 +13,8 @@ const OcdController = ({
                            dragElement,
                            viewersState,
                            setViewersState,
-                           newWidgetArr
+                           newWidgetArr,
+                           setSelectedIndividualViewerState
                         }) => {
 
     const onGridLayoutChange = (layout: any) => {
@@ -31,9 +33,8 @@ const OcdController = ({
         });
         setViewersState(filtered.flat());
     }
-
     const gridLayout = viewersState.map((v)=> v.viewerLayout)
-    console.log("gridLayout",gridLayout);
+
     return (
         <GridLayout
             isDraggable={!isLock}
@@ -43,8 +44,9 @@ const OcdController = ({
             width={window.innerWidth*3}
             rowHeight={1}
             containerPadding={[0,0]}
+            //transformScale={0.7}
             onLayoutChange={(layout)=> onGridLayoutChange(layout)}
-           useCSSTransforms={true}
+            useCSSTransforms={true}
             verticalCompact={false}
             style={{border: "solid yellow 2px"}}
         >
@@ -60,6 +62,7 @@ const OcdController = ({
                             }}>
 
                         <OcdViewer
+                            setIframeOpen={setIframeOpen}
                             title={viewer.viewerLayout.i}
                             viewerName={viewer.viewerLayout.i}
                             viewer={viewer}
@@ -68,6 +71,8 @@ const OcdController = ({
                             retrievalOfItems={retrievalOfItems}
                             dragElement={dragElement}
                             newWidgetArr={newWidgetArr}
+                            setViewersState={setViewersState}
+                            setSelectedIndividualViewerState={setSelectedIndividualViewerState}
                         >
                         </OcdViewer>
                     </div>

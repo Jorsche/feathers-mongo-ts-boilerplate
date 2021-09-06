@@ -1,0 +1,26 @@
+.document{
+    position: relative;
+}
+
+.page-controls{
+    position: relative;
+    bottom: 5%;
+    left: 50%;
+    background: white;
+    /* opacity: 0;  */
+    transform: translateX(-50%);
+    transition: opacity ease-in-out 0.2s;
+    box-shadow: 0 30px 40px 0 rgb(16 36 94 / 20%);
+    border-radius: 4px;
+
+}
+
+.prev-button, .next-button{
+    width: 44px;
+    height: 44px;
+    background: white;
+    border: 0;
+    font: inherit;
+    font-size: 0.8em;
+    border-radius: 4px;
+}
